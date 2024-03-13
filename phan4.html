@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Gia Công</title>
+    <style>
+        /* CSS cho giao diện */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .schedule {
+            display: flex;
+            justify-content: space-between;
+        }
+        .machine {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lịch Gia Công Chi Tiết</h1>
+    <div class="schedule">
+        <div class="machine">
+            <h2>Máy M1</h2>
+            <ul id="machine1"></ul>
+        </div>
+        <div class="machine">
+            <h2>Máy M2</h2>
+            <ul id="machine2"></ul>
+        </div>
+        <!-- Thêm các máy khác nếu cần -->
+    </div>
+
+    <script>
+        // Dữ liệu thời gian gia công (ví dụ)
+        const timeMatrix = [
+            [2, 3], // Thời gian gia công D1 trên M1 và M2
+            [4, 2], // Thời gian gia công D2 trên M1 và M2
+            // Thêm các thời gian gia công khác
+        ];
+
+        // Tính toán lịch gia công
+        const n = timeMatrix.length; // Số lượng chi tiết
+        const m = timeMatrix[0].length; // Số lượng máy
+
+        const schedule = [[], []]; // Lịch gia công cho M1 và M2
+
+        for (let i = 0; i < n; i++) {
+            if (timeMatrix[i][0] <= timeMatrix[i][1]) {
+                schedule[0].push(`D${i + 1}`);
+            } else {
+                schedule[1].push(`D${i + 1}`);
+            }
+        }
+
+        // Hiển thị lịch gia công lên màn hình
+        const machine1List = document.getElementById("machine1");
+        const machine2List = document.getElementById("machine2");
+
+        schedule[0].forEach(detail => {
+            const li = document.createElement("li");
+            li.textContent = detail;
+            machine1List.appendChild(li);
+        });
+
+        schedule[1].forEach(detail => {
+            const li = document.createElement("li");
+            li.textContent = detail;
+            machine2List.appendChild(li);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chọn Phần Tráng Miệng</title>
+  <script>
+    function tinhSoCachChon() {
+      var soLoaiBanh = 4;
+      var soLoaiNuoc = 3;
+      var soLoaiKem = 2;
+
+      var soCachChon = soLoaiBanh * soLoaiNuoc * soLoaiKem;
+      document.getElementById('ketQua').innerHTML = 'Có ' + soCachChon + ' cách chọn phần tráng miệng.';
+    }
+  </script>
+</head>
+<body>
+  <h1>Chọn Phần Tráng Miệng</h1>
+  <button onclick="tinhSoCachChon()">Tính Số Cách Chọn</button>
+  <p id="ketQua"></p>
+</body>
+</html>

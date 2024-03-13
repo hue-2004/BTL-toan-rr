@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Queens Puzzle</title>
+    <style>
+        .chessboard {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            width: 400px;
+            height: 400px;
+        }
+        .cell {
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .queen {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>CÁCH XẾP 10 QUÂN HẬU VÀO BÀN 10x10</h1>
+    <div class="chessboard" id="chessboard"></div>
+
+    <script>
+        // Kích thước bàn cờ
+const boardSize = 10;
+// Khởi tạo vị trí của các quân hậu, -1 nghĩa là chưa đặt quân hậu nào
+const queens = new Array(boardSize).fill(-1);
+// Hàm kiểm tra xem có thể đặt quân hậu ở vị trí (row, col) không
+function isSafe(row, col) {
+    // Duyệt qua các hàng trên, nếu có quân hậu ở cùng cột hoặc đường chéo thì trả về false
+    for (let i = 0; i < row; i++) {
+        if (queens[i] === col || Math.abs(queens[i] - col) === row - i) {
+            return false;
+        }
+    }
+    // Nếu không có quân hậu nào cản đường thì trả về true
+    return true;
+}
+// Hàm giải bài toán N quân hậu
+function solveNQueens(row) {
+    // Nếu đã đặt đủ N quân hậu thì trả về true
+    if (row === boardSize) {
+        return true;     }
+    // Thử đặt quân hậu ở mỗi cột của hàng hiện tại
+    for (let col = 0; col < boardSize; col++) {
+        if (isSafe(row, col)) {
+            queens[row] = col;
+            // Nếu có thể đặt quân hậu ở hàng tiếp theo thì trả về true
+            if (solveNQueens(row + 1)) {
+                return true;
+            }
+            // Nếu không thể đặt quân hậu ở hàng tiếp theo thì quay lui
+            queens[row] = -1; 
+        }
+    }
+    // Nếu không thể đặt quân hậu ở bất kỳ cột nào của hàng hiện tại thì trả về false
+    return false;
+}
+// Hàm tạo bàn cờ và hiển thị quân hậu
+function createChessboard() {
+    // Lấy phần tử HTML có id là 'chessboard'
+    const chessboard = document.getElementById('chessboard');
+    // Tạo bàn cờ
+    for (let row = 0; row < boardSize; row++) {
+        for (let col = 0; col < boardSize; col++) {
+            // Tạo một ô trên bàn cờ
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            // Nếu có quân hậu ở ô này thì hiển thị quân hậu
+            if (queens[row] === col) {
+                cell.innerHTML = '♛'; // Queen symbol
+                cell.classList.add('queen');
+            }
+            // Thêm ô vào bàn cờ
+            chessboard.appendChild(cell);
+        }
+    }
+}
+// Giải bài toán N quân hậu và tạo bàn cờ
+if (solveNQueens(0)) {
+    createChessboard();
+} else {
+    // Nếu không tìm được lời giải thì in ra thông báo
+    console.log('No solution exists.');
+}
+   </script>
+</body>
+</html>
